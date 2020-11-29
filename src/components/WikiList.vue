@@ -1,6 +1,7 @@
 <template>
 <div class="wiki-list">
-<wiki-list-item v-for="item in wikis" :wiki="item" :key="item.title" />
+    <span class="loading" v-if="wikis.length < 1">Loading...</span>
+    <wiki-list-item v-for="item in wikis" :wiki="item" :key="item.title" />
 </div>
 </template>
 
@@ -28,5 +29,11 @@ export default class WikiList extends Vue {
 .wiki-list {
     display: flex;
     flex-flow: column nowrap;
+
+    > .loading {
+        font-size: 2em;
+        font-weight: 600;
+        text-align: center;
+    }
 }
 </style>
