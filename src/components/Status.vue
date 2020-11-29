@@ -3,15 +3,15 @@
     <img :src="profile.avatar" alt="Avatar" />
     <div>
         <h2>{{ profile.name }}</h2>
-        <div>
+        <div v-if="wikis.length > 0">
             <span>Wiki{{ wikis.length > 1 ? 's' : '' }}</span>
             <span>{{ wikis.length }}</span>
         </div>
-        <div>
+        <div v-if="wikis.length > 0">
             <span>Since</span>
             <span>{{ since }}</span>
         </div>
-        <div>
+        <div v-if="wikis.length > 0">
             <span>Edits</span>
             <span>{{ Number(edits).toLocaleString() }}</span>
         </div>
