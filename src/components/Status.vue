@@ -1,0 +1,116 @@
+<template>
+<div class="status">
+    <img :src="profile.avatar" alt="Avatar" />
+    <div>
+        <h2>{{ profile.name }}</h2>
+        <div>
+            <span>Wiki{{ wikis.length > 1 ? 's' : '' }}</span>
+            <span>{{ wikis.length }}</span>
+        </div>
+        <div>
+            <span>Since</span>
+            <span>{{ since }}</span>
+        </div>
+        <div>
+            <span>Edits</span>
+            <span>{{ Number(edits).toLocaleString() }}</span>
+        </div>
+        <div>
+            <span>Babel{{ profile.babels.length > 1 ? 's' : '' }}</span>
+            <span class="list">
+                <span v-for="item of profile.babels" :key="item.lang">{{ item.lang }}-{{ item.level }}</span>
+            </span>
+        </div>
+    </div>
+</div>
+</template>
+
+<script lang="ts">
+import { Options, Vue } from 'vue-class-component';
+
+import Profile from '@/service/profile';
+import Wiki from '@/service/wiki';
+
+@Options({
+    props: {
+        profile: Object,
+        wikis: Array,
+    }
+})
+export default class Status extends Vue {
+    profile!: Profile;
+    wikis!: Array<Wiki>;
+
+    get since() {
+        const earlist = this.wikis.reduce((time, wiki) => Math.min(time, wiki.registration), Date.now());
+        return new Date(earlist).getFullYear();
+    }
+
+    get edits() {
+        return this.wikis.reduce((count, wiki) => count + wiki.edits, 0);
+    }
+}
+</script>
+
+<style lang="scss" scoped>
+$mobile-break-point: 480px;
+
+.status {
+    margin: 1rem;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+
+    @media screen and (max-width: $mobile-break-point) {
+        flex-flow: column nowrap;
+        align-items: stretch;
+    }
+
+    > img {
+        width: 180px;
+        height: 180px;
+        margin: auto;
+        padding: 3px;
+        border-radius:50%;
+        border: 1px solid #C0C0C0;
+    }
+
+    > div {
+        margin: 1em;
+        padding: 0.5em;
+        border-left: 1px solid #C0C0C0;
+        flex-grow: 1;
+        display: flex;
+        flex-flow: column nowrap;
+
+        @media screen and (max-width: $mobile-break-point) {
+            border-left: none;
+            border-top: 1px solid #C0C0C0;
+        }
+
+        > h2 {
+            margin: 0.5em 0;
+        }
+
+        > div {
+            margin-top: 0.2em;
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+
+            > :first-child {
+                text-align: start;
+                font-weight: 600;
+            }
+            > :last-child {
+                text-align: end;
+            }
+
+            > .list {
+                display: flex;
+                flex-flow: column nowrap;
+            }
+        }
+    }
+}
+</style>
