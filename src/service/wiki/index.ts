@@ -18,7 +18,7 @@ export default class Wiki {
     registration: number = 0;
     edits: number = 0;
 
-    public query(callback: QueryCallback) {
+    query(callback: QueryCallback) {
         fetch(`${this.url}/api.php?action=query&meta=siteinfo&siprop=general&list=users&ususers=${this.user}&usprop=editcount|registration&format=json&origin=*`)
         .then((response) => response.json())
         .then((value) => {
@@ -35,6 +35,10 @@ export default class Wiki {
             callback(true);
         })
         .catch(() => callback(false));
+    }
+
+    get since() {
+        return new Date(this.registration).toLocaleDateString();
     }
 
     static parse(json: WikiData): Wiki {
