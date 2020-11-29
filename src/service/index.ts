@@ -25,15 +25,17 @@ export namespace service {
         for (const json of dataWikis) {
             const wiki = Wiki.parse(json);
             wiki.query((succeed) => {
-                if (succeed) {
-                    wikis.push(wiki);
-                    console.log(wiki);
-                }
+                if (succeed) wikis.push(wiki);
                 count += 1;
                 if (count === dataWikis.length) {
-                    events.idle();
+                    idle();
                 }
             });
         }
+    }
+
+    function idle() {
+        wikis.sort((a, b) => a.registration - b.registration);
+        events.idle();
     }
 }
