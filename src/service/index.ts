@@ -35,7 +35,7 @@ export namespace service {
     }
 
     function idle() {
-        wikis.sort((a, b) => a.registration - b.registration);
+        wikis.sort((a, b) => b.edits - a.edits);
         events.idle();
     }
 }
