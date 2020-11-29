@@ -35,6 +35,7 @@ export default class WikiListItem extends Vue {}
     > img {
         margin: auto;
         padding: 3px;
+        width: 135px;
     }
 
     > div {
