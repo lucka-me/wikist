@@ -3,24 +3,24 @@
     <img :src="profile.avatar" alt="Avatar" />
     <div>
         <h2>{{ profile.name }}</h2>
-        <div v-if="wikis.length > 0">
+        <span v-if="wikis.length > 0">
             <span>Wiki{{ wikis.length > 1 ? 's' : '' }}</span>
             <span>{{ wikis.length }}</span>
-        </div>
-        <div v-if="wikis.length > 0">
+        </span>
+        <span v-if="wikis.length > 0">
             <span>Since</span>
             <span>{{ since }}</span>
-        </div>
-        <div v-if="wikis.length > 0">
+        </span>
+        <span v-if="wikis.length > 0">
             <span>Edits</span>
             <span>{{ Number(edits).toLocaleString() }}</span>
-        </div>
-        <div>
+        </span>
+        <span>
             <span>Babel{{ profile.babels.length > 1 ? 's' : '' }}</span>
             <span class="list">
                 <span v-for="item of profile.babels" :key="item.lang">{{ item.lang }}-{{ item.level }}</span>
             </span>
-        </div>
+        </span>
     </div>
 </div>
 </template>
@@ -67,8 +67,8 @@ $mobile-break-point: 480px;
     }
 
     > img {
-        width: 180px;
-        height: 180px;
+        max-width: 180px;
+        max-height: 180px;
         margin: auto;
         padding: 3px;
         border-radius:50%;
@@ -92,7 +92,7 @@ $mobile-break-point: 480px;
             margin: 0.5em 0;
         }
 
-        > div {
+        > span {
             margin-top: 0.2em;
             display: flex;
             flex-flow: row nowrap;
