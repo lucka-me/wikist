@@ -42,6 +42,10 @@ body {
     margin: 0;
 }
 
+header, h1, h2 {
+    font-family: Cinzel, "宋体", serif;
+}
+
 .app {
     font-family: Josefin Slab, "宋体", serif;
     max-width: 600px;
@@ -53,7 +57,6 @@ body {
         position: fixed;
         left: 0;
         right: 0;
-        font-family: Cinzel, "宋体", serif;
         text-align: center;
         border-bottom: 1px solid #C0C0C0;
         background-color: #FFF;
