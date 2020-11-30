@@ -89,7 +89,7 @@ $mobile-break-point: 480px;
         }
 
         > h2 {
-            margin: 0.5em 0;
+            margin: 0.5em 0 0.2em;
         }
 
         > span {
@@ -99,11 +99,7 @@ $mobile-break-point: 480px;
             justify-content: space-between;
 
             > :first-child {
-                text-align: start;
                 font-weight: 600;
-            }
-            > :last-child {
-                text-align: end;
             }
 
             > .list {
