@@ -2,7 +2,10 @@
   "name": "wikist",
   "version": "0.1.0",
   "scripts": {
+    "postinstall": "tsc -m commonjs --esModuleInterop vue.config.ts",
+    "prestart": "tsc -m commonjs --esModuleInterop vue.config.ts",
     "start": "vue-cli-service serve",
+    "prebuild": "tsc -m commonjs --esModuleInterop vue.config.ts",
     "build": "vue-cli-service build"
   },
   "repository": {
