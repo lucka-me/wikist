@@ -13,6 +13,10 @@
             <span>Edit{{ wiki.edits > 1 ? 's' : ''}}</span>
             <span>{{ Number(wiki.edits).toLocaleString() }}</span>
         </span>
+        <span v-if="wiki.lastEdit > 0">
+            <span>Last Edit</span>
+            <span>{{ wiki.lastEditDate }}</span>
+        </span>
     </div>
 </div>
 </template>
@@ -41,7 +45,6 @@ export default class WikiListItem extends Vue {}
     
     > img {
         margin: auto;
-        padding: 3px;
         width: 135px;
         min-width: 135px;
         max-width: 135px;

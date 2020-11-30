@@ -19,9 +19,16 @@ export default class Wiki {
     uid: number = 0;
     registration: number = 0;
     edits: number = 0;
+    lastEdit: number = 0;
 
     query(callback: QueryCallback) {
-        fetch(`${this.url}/api.php?action=query&meta=siteinfo&siprop=general&list=users&ususers=${this.user}&usprop=editcount|registration&format=json&origin=*`)
+        const query = `${this.url}/api.php?action=query`
+            + '&meta=siteinfo&siprop=general'
+            + '&list=users|usercontribs'
+            + `&ususers=${this.user}&usprop=editcount|registration`
+            + `&ucuser=${this.user}&uclimit=1&ucprop=timestamp`
+            + '&format=json&origin=*';
+        fetch(query)
         .then((response) => response.json())
         .then((value) => {
             const siteValue = value.query.general;
@@ -39,9 +46,20 @@ export default class Wiki {
             this.uid = userValue.userid;
             this.registration = Date.parse(userValue.registration);
             this.edits = userValue.editcount;
+
+            if (value.query.usercontribs.length > 0) {
+                const lastContribValue = value.query.usercontribs[0];
+                this.lastEdit = Date.parse(lastContribValue.timestamp);
+            }
+
+            
             callback(true);
         })
         .catch(() => callback(false));
+    }
+
+    get lastEditDate() {
+        return new Date(this.lastEdit).toLocaleDateString();
     }
 
     get since() {
