@@ -13,6 +13,8 @@ export default class Wiki {
     title: string = '';
     base: string = '';
     logo: string = '';
+    server: string = '';
+    articlePath: string = '';
 
     uid: number = 0;
     registration: number = 0;
@@ -26,6 +28,11 @@ export default class Wiki {
             this.title = siteValue.sitename;
             this.base = siteValue.base;
             this.logo = siteValue.logo;
+            this.server = siteValue.server;
+            if (this.server.match(/^\/\//)) {
+                this.server = `https:${this.server}`;
+            }
+            this.articlePath = `${this.server}${siteValue.articlepath}`;
 
             const userValue = value.query.users[0];
 
@@ -39,6 +46,10 @@ export default class Wiki {
 
     get since() {
         return new Date(this.registration).toLocaleDateString();
+    }
+
+    get userPage() {
+        return this.articlePath.replace('$1', `User:${this.user}`);
     }
 
     static parse(json: WikiData): Wiki {
