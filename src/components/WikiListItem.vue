@@ -2,10 +2,17 @@
 <div class="wiki-list-item">
     <img :src="wiki.logo" alt="Logo" />
     <div>
-        <h2>{{wiki.title}}</h2>
-        <span>{{ wiki.user }}</span>
-        <span>Since {{ wiki.since }}</span>
-        <span>{{ Number(wiki.edits).toLocaleString() }} Edit{{ wiki.edits > 1 ? 's' : ''}}</span>
+        <h2><a :href="wiki.base" title="Homepage" target="_blank" rel="noopener">{{wiki.title}}</a></h2>
+        <span>
+            <a :href="wiki.userPage" title="User Page" target="_blank" rel="noopener">{{ wiki.user }}</a>
+            <span>#{{ wiki.uid }}</span></span>
+        <span>
+            <span>Since</span>
+            <span>{{ wiki.since }}</span></span>
+        <span>
+            <span>Edit{{ wiki.edits > 1 ? 's' : ''}}</span>
+            <span>{{ Number(wiki.edits).toLocaleString() }}</span>
+        </span>
     </div>
 </div>
 </template>
