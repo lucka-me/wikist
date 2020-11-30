@@ -76,14 +76,16 @@ $mobile-break-point: 480px;
     }
 
     > div {
-        margin: 1em;
-        padding: 0.5em;
+        margin: 1em 0 1em 1em;
+        padding: 0.5em 0 1em 1em;
         border-left: 1px solid #C0C0C0;
         flex-grow: 1;
         display: flex;
         flex-flow: column nowrap;
 
         @media screen and (max-width: $mobile-break-point) {
+            margin: 1em 0 0;
+            padding: 0.5em 0 0;
             border-left: none;
             border-top: 1px solid #C0C0C0;
         }
