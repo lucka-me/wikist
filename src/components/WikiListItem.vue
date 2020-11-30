@@ -69,6 +69,7 @@ export default class WikiListItem extends Vue {}
             display: flex;
             flex-flow: row nowrap;
             justify-content: space-between;
+            align-items: baseline;
         }
 
         .tags {

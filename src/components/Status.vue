@@ -97,9 +97,15 @@ $mobile-break-point: 480px;
             display: flex;
             flex-flow: row nowrap;
             justify-content: space-between;
+            align-items: baseline;
 
             > :first-child {
+                text-align: start;
                 font-weight: 600;
+            }
+
+            > :last-child {
+                text-align: end;
             }
 
             > .list {
