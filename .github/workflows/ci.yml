@@ -19,5 +19,5 @@ jobs:
         node-version: 12.x
     - name: Initiate
       run: npm ci
-    - name: Build Potori
+    - name: Build Wikist
       run: npm run build
