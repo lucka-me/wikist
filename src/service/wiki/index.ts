@@ -29,7 +29,7 @@ export default class Wiki {
 
             const userValue = value.query.users[0];
 
-            this.uid = userValue.uid;
+            this.uid = userValue.userid;
             this.registration = Date.parse(userValue.registration);
             this.edits = userValue.editcount;
             callback(true);
