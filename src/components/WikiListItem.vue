@@ -3,6 +3,9 @@
     <img :src="wiki.logo" alt="Logo" />
     <div>
         <h2><a :href="wiki.base" title="Homepage" target="_blank" rel="noopener">{{wiki.title}}</a></h2>
+        <span class="tags" v-if="wiki.tags.length > 0">
+            <span v-for="tag of wiki.tags" :key="tag">#{{tag}}</span>
+        </span>
         <span>
             <a :href="wiki.userPage" title="User Page" target="_blank" rel="noopener">{{ wiki.user }}</a>
             <span>#{{ wiki.uid }}</span></span>
@@ -58,7 +61,7 @@ export default class WikiListItem extends Vue {}
         flex-flow: column nowrap;
 
         > h2 {
-            margin: 0.3em 0;
+            margin: 0.3em 0 0.15em;
         }
 
         > span {
@@ -66,6 +69,19 @@ export default class WikiListItem extends Vue {}
             display: flex;
             flex-flow: row nowrap;
             justify-content: space-between;
+        }
+
+        .tags {
+            justify-content: flex-start;
+
+            > span {
+                margin-inline-end: 0.2em;
+
+                &:hover {
+                    color: #0645ad;
+                    transition: 500ms all;
+                }
+            }
         }
     }
 }
