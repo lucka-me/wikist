@@ -1,5 +1,9 @@
 type QueryCallback = (succeed: boolean) => void;
 
+const Constants = {
+    TIME_MONTH: 90 * 24 * 3600 * 1000,
+}
+
 interface WikiData {
     url: string;
     user: string;
@@ -20,6 +24,8 @@ export default class Wiki {
     registration: number = 0;
     edits: number = 0;
     lastEdit: number = 0;
+
+    tags: Array<string> = [];
 
     query(callback: QueryCallback) {
         const query = `${this.url}/api.php?action=query`
@@ -50,6 +56,10 @@ export default class Wiki {
             if (value.query.usercontribs.length > 0) {
                 const lastContribValue = value.query.usercontribs[0];
                 this.lastEdit = Date.parse(lastContribValue.timestamp);
+
+                if (Date.now() - this.lastEdit < Constants.TIME_MONTH) {
+                    this.tags.push('active');
+                }
             }
 
             
