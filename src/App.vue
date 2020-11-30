@@ -49,6 +49,11 @@ header, h1, h2 {
 a {
     color: inherit;
     text-decoration: inherit;
+
+    &:hover {
+        color: #0645ad;
+        transition: 500ms all;
+    }
 }
 
 .app {
