@@ -46,6 +46,11 @@ header, h1, h2 {
     font-family: Cinzel, "宋体", serif;
 }
 
+a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
 .app {
     font-family: Josefin Slab, "宋体", serif;
     max-width: 600px;
