@@ -43,6 +43,9 @@ export default class WikiListItem extends Vue {}
         margin: auto;
         padding: 3px;
         width: 135px;
+        min-width: 135px;
+        max-width: 135px;
+        text-align: center;
     }
 
     > div {
