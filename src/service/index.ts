@@ -1,4 +1,4 @@
-import config from 'root/config.yaml';
+import config from '@config';
 
 import Profile from './profile';
 import Wiki from './wiki';

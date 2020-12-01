@@ -1,4 +1,4 @@
-declare module 'root/config.yaml' {
+declare module '@config' {
 
     import Profile from './profile';
     import { WikiData } from './wiki';
