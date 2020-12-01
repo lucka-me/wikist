@@ -4,7 +4,7 @@ const Constants = {
     TIME_MONTH: 90 * 24 * 3600 * 1000,
 }
 
-interface WikiData {
+export interface WikiData {
     url: string;
     user: string;
 }

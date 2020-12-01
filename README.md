@@ -15,19 +15,4 @@ $ npm run build # Build for production
 ```
 
 ## Configure
-To configure the contents, edit `JSON` files in `src/data`
-
-### `profile.json`
-An object of your information.
-
-- `name` Your name
-- `avatar` URL to your avatar, `180x180px` recommended
-- `babels` List of your Babel, for each babel item:
-    - `lang` Language code
-    - `level` Babel level, 0~5 or N
-
-### `wikis.json`
-A list of all wikis, for each wiki item:
-
-- `url` API path of the wiki, i.e. `https://zh.wikipedia.org/w` for Wikipedia
-- `user` Username in the wiki
+To configure the contents, edit `config.yaml` and refer the comments.

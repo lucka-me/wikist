@@ -1,0 +1,20 @@
+profile:  # Your information, all items are required
+  name: 'Lucka' # Your name
+  avatar: 'https://s.gravatar.com/avatar/f03d18971cd558e09f51ad19923bf077?s=180'  # URL to your avatar, `180x180px` recommended
+  babels: # List of your Babel
+    - lang: 'zh'  # Language code
+      level: 'N'  # Babel level, 0~5 or N
+    - lang: 'en'
+      level: 2
+
+wikis:  # List of all wikis
+  - url: 'https://wiki.52poke.com'  # API path of the wiki
+    user: '卢卡'  # Your username in the wiki
+  - url: 'https://zh.wikipedia.org/w'
+    user: '卢卡'
+  - url: 'https://zh.moegirl.org.cn'
+    user: '卢卡'
+  - url: 'https://thwiki.cc'
+    user: '卢卡'
+  - url: 'https://wiki.llsif.moe'
+    user: 'Lucka'

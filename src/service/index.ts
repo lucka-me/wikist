@@ -1,5 +1,4 @@
-import dataProfile from '@/data/profile.json';
-import dataWikis from '@/data/wikis.json';
+import config from 'root/config.yaml';
 
 import Profile from './profile';
 import Wiki from './wiki';
@@ -12,7 +11,7 @@ interface ServiceEvents {
 
 export namespace service {
 
-    export const profile: Profile = dataProfile;
+    export const profile: Profile = config.profile;
     export const wikis: Array<Wiki> = [];
 
     export const events: ServiceEvents = {
@@ -22,12 +21,12 @@ export namespace service {
     export function start() {
         wikis.length = 0;
         let count = 0;
-        for (const json of dataWikis) {
+        for (const json of config.wikis) {
             const wiki = Wiki.parse(json);
             wiki.query((succeed) => {
                 if (succeed) wikis.push(wiki);
                 count += 1;
-                if (count === dataWikis.length) {
+                if (count === config.wikis.length) {
                     idle();
                 }
             });
