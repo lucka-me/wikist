@@ -48,14 +48,14 @@ export default class App extends Vue {
 </script>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css?family=Josefin+Slab|Cinzel&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Cinzel|Noto+Serif+TC|Noto+Serif+SC&display=swap');
 
 body {
     margin: 0;
 }
 
 header, h1, h2 {
-    font-family: Cinzel, "宋体", serif;
+    font-family: Cinzel, 'Noto Serif TC', 'Noto Serif SC', serif;
 }
 
 a {
@@ -69,7 +69,7 @@ a {
 }
 
 .app {
-    font-family: Josefin Slab, "宋体", serif;
+    font-family: 'Noto Serif TC', 'Noto Serif SC', serif;
     max-width: 600px;
     margin: 0 auto;
     display: flex;
