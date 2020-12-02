@@ -2,13 +2,13 @@
 <header><h1>Wikist</h1></header>
 <div class="header-adjust"></div>
 <status :profile="profile" :wikis="wikis"/>
-<wiki-list :wikis="wikis"/>
+<wiki-list :wikis="wikis" :loading="loading"/>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 
-import { service } from './service';
+import config from '@config';
 import Profile from './service/profile';
 import Wiki from './service/wiki';
 
@@ -23,14 +23,26 @@ import WikiList from './components/WikiList.vue';
 })
 export default class App extends Vue {
 
-    profile: Profile = service.profile;
+    profile: Profile = config.profile;
     wikis: Array<Wiki> = [];
+    loading: boolean = true;
 
-    created() {
-        service.events.idle = () => {
-            this.wikis = service.wikis;
-        };
-        service.start();
+    mounted() {
+        this.wikis.length = 0;
+        let count = 0;
+        for (const json of config.wikis) {
+            const wiki = Wiki.parse(json);
+            wiki.query((succeed) => {
+                if (succeed) {
+                    this.wikis.push(wiki);
+                    this.wikis.sort((a, b) => b.edits - a.edits);
+                }
+                count += 1;
+                if (count === config.wikis.length) {
+                    this.loading = false;
+                }
+            });
+        }
     }
 }
 </script>

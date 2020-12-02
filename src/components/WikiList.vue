@@ -1,7 +1,7 @@
 <template>
 <div class="wiki-list">
-    <span class="loading" v-if="wikis.length < 1">Loading...</span>
     <wiki-list-item v-for="item in wikis" :wiki="item" :key="item.title" />
+    <span class="loading" v-if="loading">Loading...</span>
 </div>
 </template>
 
@@ -14,6 +14,7 @@ import WikiListItem from './WikiListItem.vue';
 
 @Options({
     props: {
+        loading: Boolean,
         wikis: Array,
     },
     components: {
@@ -21,6 +22,7 @@ import WikiListItem from './WikiListItem.vue';
     }
 })
 export default class WikiList extends Vue {
+    loading!: boolean;
     wikis!: Array<Wiki>;
 }
 </script>

@@ -1,7 +1,7 @@
 declare module '@config' {
 
-    import Profile from './profile';
-    import { WikiData } from './wiki';
+    import Profile from '@/service/profile';
+    import { WikiData } from '@/service/wiki';
 
     interface WikistConfig {
         profile: Profile;
