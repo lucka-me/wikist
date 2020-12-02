@@ -40,7 +40,6 @@ export default class WikiListItem extends Vue {}
 <style lang="scss" scoped>
 .wiki-list-item {
     margin: 0;
-    padding: 0.5em 1rem;
     border-top: 1px solid #C0C0C0;
     display: flex;
     flex-flow: row nowrap;

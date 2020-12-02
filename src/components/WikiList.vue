@@ -32,6 +32,10 @@ export default class WikiList extends Vue {
     display: flex;
     flex-flow: column nowrap;
 
+    > * {
+        padding: 0.5em 1rem;
+    }
+
     > .loading {
         font-size: 2em;
         font-weight: 600;
