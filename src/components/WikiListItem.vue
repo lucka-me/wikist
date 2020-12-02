@@ -44,6 +44,7 @@ export default class WikiListItem extends Vue {}
     display: flex;
     flex-flow: row nowrap;
     color: #000;
+    background-color: #FFF;
     
     > img {
         margin: auto;

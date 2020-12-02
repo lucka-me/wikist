@@ -1,7 +1,9 @@
 <template>
 <div class="wiki-list">
-    <wiki-list-item v-for="item in wikis" :wiki="item" :key="item.title" />
-    <span class="loading" v-if="loading">Loading...</span>
+    <transition-group name="wiki-list">
+        <wiki-list-item v-for="item in wikis" :wiki="item" :key="item.title" />
+        <span class="loading" v-if="loading">Loading...</span>
+    </transition-group>
 </div>
 </template>
 
@@ -41,5 +43,19 @@ export default class WikiList extends Vue {
         font-weight: 600;
         text-align: center;
     }
+
+    .wiki-list-enter-active,
+    .wiki-list-leave-active {
+        transition: all 0.8s ease;
+    }
+    .wiki-list-enter-from,
+    .wiki-list-leave-to {
+        opacity: 0;
+        transform: translateY(-2em);
+    }
+    .wiki-list-move {
+        transition: transform 0.8s ease;
+    }
+
 }
 </style>
