@@ -1,7 +1,7 @@
 type QueryCallback = (succeed: boolean) => void;
 
 const Constants = {
-    TIME_MONTH: 90 * 24 * 3600 * 1000,
+    TIME_ACTIVE: 30 * 24 * 3600 * 1000,
 }
 
 export interface WikiData {
@@ -57,7 +57,7 @@ export default class Wiki {
                 const lastContribValue = value.query.usercontribs[0];
                 this.lastEdit = Date.parse(lastContribValue.timestamp);
 
-                if (Date.now() - this.lastEdit < Constants.TIME_MONTH) {
+                if (Date.now() - this.lastEdit < Constants.TIME_ACTIVE) {
                     this.tags.push('active');
                 }
             }
