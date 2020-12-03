@@ -9,7 +9,7 @@ export interface WikiData {
     user: string;
 }
 
-export default class Wiki {
+export default class Wiki implements WikiData {
 
     url: string = '';
     user: string = '';

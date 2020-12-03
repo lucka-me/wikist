@@ -15,7 +15,7 @@
             <span>Edits</span>
             <span>{{ Number(edits).toLocaleString() }}</span>
         </span>
-        <span>
+        <span v-if="profile.babels && profile.babels.length > 0">
             <span>Babel{{ profile.babels.length > 1 ? 's' : '' }}</span>
             <span class="list">
                 <span v-for="item of profile.babels" :key="item.lang">{{ item.lang }}-{{ item.level }}</span>

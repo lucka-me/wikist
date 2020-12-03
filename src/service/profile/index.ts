@@ -6,5 +6,5 @@ interface Babel {
 export default interface Profile {
     name: string;
     avatar: string;
-    babels: Array<Babel>;
+    babels?: Array<Babel>;
 }
