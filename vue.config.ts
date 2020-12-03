@@ -3,8 +3,7 @@ import path from 'path';
 import { ProjectOptions } from '@vue/cli-service';
 import YAML from 'yaml';
 
-const configFile = fs.readFileSync('./config.yaml', 'utf-8');
-const config = YAML.parse(configFile);
+const config = YAML.parse(fs.readFileSync('./config.yaml', 'utf-8'));
 
 const options: ProjectOptions = {
     publicPath: config.project.publicPath || '/wikist/',
