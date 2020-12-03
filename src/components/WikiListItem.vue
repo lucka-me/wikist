@@ -1,10 +1,12 @@
 <template>
 <div class="wiki-list-item">
-    <img :src="wiki.logo" alt="Logo" />
+    <a :href="wiki.base" title="Homepage" target="_blank" rel="noopener" class="logo">
+        <img :src="wiki.logo" :alt="wiki.title" />
+    </a>
     <div>
-        <h2><a :href="wiki.base" title="Homepage" target="_blank" rel="noopener">{{wiki.title}}</a></h2>
+        <h2>{{ wiki.title }}</h2>
         <span class="tags" v-if="wiki.tags.length > 0">
-            <span v-for="tag of wiki.tags" :key="tag">#{{tag}}</span>
+            <span v-for="tag of wiki.tags" :key="tag">#{{ tag }}</span>
         </span>
         <span>
             <a :href="wiki.userPage" title="User Page" target="_blank" rel="noopener">{{ wiki.user }}</a>
@@ -46,12 +48,20 @@ export default class WikiListItem extends Vue {}
     color: #000;
     background-color: #FFF;
     
-    > img {
+    > .logo {
         margin: auto;
         width: 135px;
         min-width: 135px;
         max-width: 135px;
+        border-radius: 0.5em;
         text-align: center;
+
+        transition: 500ms all;
+
+        &:hover {
+            background-color: #0646ad11;
+            transition: 500ms all;
+        }
     }
 
     > div {

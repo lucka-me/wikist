@@ -39,7 +39,7 @@ export default class WikiList extends Vue {
     }
 
     > .loading {
-        font-size: 2em;
+        font-size: 1.5em;
         font-weight: 600;
         text-align: center;
     }
