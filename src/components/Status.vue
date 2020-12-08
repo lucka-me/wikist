@@ -52,7 +52,7 @@ export default class Status extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 $mobile-break-point: 480px;
 
 .status {

@@ -39,7 +39,7 @@ import Wiki from '@/service/wiki';
 export default class WikiListItem extends Vue {}
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .wiki-list-item {
     margin: 0;
     border-top: 1px solid #C0C0C0;
@@ -50,17 +50,19 @@ export default class WikiListItem extends Vue {}
     
     > .logo {
         margin: auto;
-        width: 135px;
-        min-width: 135px;
-        max-width: 135px;
         border-radius: 0.5em;
-        text-align: center;
-
         transition: 500ms all;
 
         &:hover {
             background-color: #0646ad11;
             transition: 500ms all;
+        }
+
+        > img {
+            width: 135px;
+            min-width: 135px;
+            max-width: 135px;
+            text-align: center;
         }
     }
 

@@ -29,7 +29,7 @@ export default class WikiList extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .wiki-list {
     display: flex;
     flex-flow: column nowrap;
