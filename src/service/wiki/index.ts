@@ -108,7 +108,7 @@ export default class Wiki implements WikiData {
             })
             .catch(() => {
                 // Still succeed if has all info but query fails
-                callback(hasSiteInfo && hasUserInfo && this.forceRefresh);
+                callback(hasSiteInfo && hasUserInfo);
             });
     }
 
