@@ -2,22 +2,39 @@ profile:  # Your profile, required
   name: 'Lucka' # Your name, required
   avatar: 'https://s.gravatar.com/avatar/f03d18971cd558e09f51ad19923bf077?s=180'  # URL to your avatar, `180x180px` recommended, required
   babels: # List of your Babel, optional
-    - lang: 'zh'  # Language code
-      level: 'N'  # Babel level, 0~5 or N
+    - lang: 'zh'  # Language code, required
+      level: 'N'  # Babel level, 0~5 or N, required
     - lang: 'en'
       level: 2
 
 wikis:  # List of all wikis, required
-  - url: 'https://wiki.52poke.com'  # API path of the wiki
-    user: '卢卡'  # Your username in the wiki
+  - url: 'https://wiki.52poke.com'  
+    user: '卢卡'
+    tags: [ 'pokemon' ]
   - url: 'https://zh.wikipedia.org/w'
     user: '卢卡'
   - url: 'https://zh.moegirl.org.cn'
     user: '卢卡'
   - url: 'https://thwiki.cc'
     user: '卢卡'
-  - url: 'https://wiki.llsif.moe'
-    user: 'Lucka'
+    tags: [ 'touhou' ]
+  - url: 'https://wiki.llsif.moe' # API path of the wiki, required
+    user: 'Lucka'                 # Your username in the wiki, required
+    # Fields below are all optional and will override the query results
+    # Site Info, won't query site info if all provided
+    title: 'LoveLive School Idol Festival Wiki'       # Title, optional
+    base: 'https://wiki.llsif.moe/%E9%A6%96%E9%A1%B5' # Homepage URL, optional
+    logo: 'https://www.llsif.moe/SIF_50MDL.png'       # Logo URL, set if the logo is 403
+    server: 'https://wiki.llsif.moe'                  # Server URL
+    articlePath: '/$1'                                # Article path
+    # User Info, won't query user info and contribution if all provided unless forceUpdate is true
+    uid: 79                     # User ID
+    registration: 1520507202000 # Registration timestamp, UTC in ms
+    edits: 70                   # Edit count
+    lastEdit: 1544796913000     # Timestamp of last edition
+    # Misc
+    tags: [ 'lovelive' ]  # Tags, will be appended to the generated list
+    forceRefresh: false   # If true, the edit and lastEdit will always be quried and refreshed
 
 project:  # Configures for the project, will be passed in vue.config.ts
   - publicPath: '/wikist/'  # Default: /wikist/
