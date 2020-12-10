@@ -2,7 +2,7 @@ type QueryCallback = (succeed: boolean) => void;
 
 const Constants = {
     TIME_ACTIVE: 30 * 24 * 3600 * 1000,
-    REGEXP_URL: /^https?;\/\//i
+    REGEXP_URL: /^https?:\/\//i
 }
 
 export interface WikiData {
