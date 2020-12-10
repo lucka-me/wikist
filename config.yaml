@@ -15,10 +15,12 @@ wikis:  # List of all wikis, required
     user: '卢卡'
   - url: 'https://zh.moegirl.org.cn'
     user: '卢卡'
+    logo: 'https://upload.wikimedia.org/wikipedia/zh/1/1d/Moegirlpedia_logo(2015).png'
   - url: 'https://thwiki.cc'
     user: '卢卡'
     tags: [ 'touhou' ]
-  - url: 'https://wiki.llsif.moe' # API path of the wiki, required
+  - # Please refer to this item for all available fields
+    url: 'https://wiki.llsif.moe' # API path of the wiki, required
     user: 'Lucka'                 # Your username in the wiki, required
     # Fields below are all optional and will override the query results
     # Site Info, won't query site info if all provided
