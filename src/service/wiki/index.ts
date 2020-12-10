@@ -2,11 +2,28 @@ type QueryCallback = (succeed: boolean) => void;
 
 const Constants = {
     TIME_ACTIVE: 30 * 24 * 3600 * 1000,
+    REGEXP_URL: /^https?;\/\//i
 }
 
 export interface WikiData {
     url: string;
     user: string;
+
+    title?: string;
+    base?: string;
+    logo?: string;
+    server?: string;
+    articlePath?: string;
+
+    uid?: number;
+    registration?: number;
+
+    edits?: number;
+    lastEdit?: number;
+
+    tags?: Array<string>;
+
+    forceUpdate?: boolean;
 }
 
 export default class Wiki implements WikiData {
@@ -27,45 +44,72 @@ export default class Wiki implements WikiData {
 
     tags: Array<string> = [];
 
+    forceRefresh: boolean = false;
+
     query(callback: QueryCallback) {
+
+        const hasSiteInfo = this.title.length > 0
+            && Constants.REGEXP_URL.test(this.base)
+            && Constants.REGEXP_URL.test(this.logo)
+            && Constants.REGEXP_URL.test(this.server)
+            && this.articlePath.length > 0;
+        const hasUserInfo = this.uid > 0 && this.registration > 0;
+
+        if (hasSiteInfo && hasUserInfo && !this.forceRefresh) {
+            callback(true);
+            return;
+        }
+
+        const refreshUserInfo = !hasUserInfo || this.forceRefresh;
+
         const query = `${this.url}/api.php?action=query`
-            + '&meta=siteinfo&siprop=general'
-            + '&list=users|usercontribs'
-            + `&ususers=${this.user}&usprop=editcount|registration`
-            + `&ucuser=${this.user}&uclimit=1&ucprop=timestamp`
+            + (hasSiteInfo ? '' : '&meta=siteinfo&siprop=general')
+            + (refreshUserInfo ? '&list=users|usercontribs' : '')
+            + (refreshUserInfo ? `&ususers=${this.user}&usprop=editcount` : '')
+                + (hasUserInfo ? '' : '|registration')
+            + (refreshUserInfo ? `&ucuser=${this.user}&uclimit=1&ucprop=timestamp` : '')
             + '&format=json&origin=*';
         fetch(query)
-        .then((response) => response.json())
-        .then((value) => {
-            const siteValue = value.query.general;
-            this.title = siteValue.sitename;
-            this.base = siteValue.base;
-            this.logo = siteValue.logo;
-            this.server = siteValue.server;
-            if (this.server.match(/^\/\//)) {
-                this.server = `https:${this.server}`;
-            }
-            this.articlePath = `${this.server}${siteValue.articlepath}`;
+            .then((response) => response.json())
+            .then((value) => {
+                if (!hasSiteInfo) {
+                    const siteValue = value.query.general;
+                    if (!this.title) this.title = siteValue.sitename;
+                    if (!this.base) this.base = siteValue.base;
+                    if (!this.logo) this.logo = siteValue.logo;
+                    if (!this.server) this.server = siteValue.server;
+                    if (/^\/\//.test(this.server)) {
+                        this.server = `https:${this.server}`;
+                    }
+                    if (!this.articlePath) this.articlePath = siteValue.articlepath;
+                }
 
-            const userValue = value.query.users[0];
+                if (refreshUserInfo) {
+                    const userValue = value.query.users[0];
 
-            this.uid = userValue.userid;
-            this.registration = Date.parse(userValue.registration);
-            this.edits = userValue.editcount;
+                    if (!hasUserInfo) {
+                        if (!this.uid) this.uid = userValue.userid;
+                        if (!this.registration) this.registration = Date.parse(userValue.registration);
+                    }
 
-            if (value.query.usercontribs.length > 0) {
-                const lastContribValue = value.query.usercontribs[0];
-                this.lastEdit = Date.parse(lastContribValue.timestamp);
+                    this.edits = userValue.editcount;
+
+                    if (value.query.usercontribs.length > 0) {
+                        const lastContribValue = value.query.usercontribs[0];
+                        this.lastEdit = Date.parse(lastContribValue.timestamp);
+                    }
+                }
 
                 if (Date.now() - this.lastEdit < Constants.TIME_ACTIVE) {
-                    this.tags.push('active');
+                    this.tags.unshift('active');
                 }
-            }
 
-            
-            callback(true);
-        })
-        .catch(() => callback(false));
+                callback(true);
+            })
+            .catch(() => {
+                // Still succeed if has all info but query fails
+                callback(hasSiteInfo && hasUserInfo && this.forceRefresh);
+            });
     }
 
     get lastEditDate() {
@@ -77,13 +121,32 @@ export default class Wiki implements WikiData {
     }
 
     get userPage() {
-        return this.articlePath.replace('$1', `User:${this.user}`);
+        return this.getArticlePath(`User:${this.user}`);
+    }
+
+    getArticlePath(title: string) {
+        return `${this.server}${this.articlePath.replace('$1', title)}`;
     }
 
     static parse(json: WikiData): Wiki {
         const wiki = new Wiki;
         wiki.url = json.url;
         wiki.user = json.user;
+
+        if (json.title) wiki.title = json.title;
+        if (json.base) wiki.base = json.base;
+        if (json.logo) wiki.logo = json.logo;
+        if (json.server) wiki.server = json.server;
+        if (json.articlePath) wiki.articlePath = json.articlePath;
+
+        if (json.uid) wiki.uid = json.uid;
+        if (json.registration) wiki.registration = json.registration;
+        if (json.edits) wiki.edits = json.edits;
+        if (json.lastEdit) wiki.lastEdit = json.lastEdit;
+
+        if (json.tags) wiki.tags = json.tags;
+
+        if (json.forceUpdate) wiki.forceRefresh = json.forceUpdate;
 
         return wiki;
     }
