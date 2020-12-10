@@ -7,36 +7,57 @@ profile:  # Your profile, required
     - lang: 'en'
       level: 2
 
+
 wikis:  # List of all wikis, required
-  - url: 'https://wiki.52poke.com'  
-    user: '卢卡'
-    tags: [ 'pokemon' ]
-  - url: 'https://zh.wikipedia.org/w'
-    user: '卢卡'
-  - url: 'https://zh.moegirl.org.cn'
-    user: '卢卡'
-    logo: 'https://upload.wikimedia.org/wikipedia/zh/1/1d/Moegirlpedia_logo(2015).png'
-  - url: 'https://thwiki.cc'
-    user: '卢卡'
-    tags: [ 'touhou' ]
   - # Please refer to this item for all available fields
     url: 'https://wiki.llsif.moe' # API path of the wiki, required
     user: 'Lucka'                 # Your username in the wiki, required
     # Fields below are all optional and will override the query results
-    # Site Info, won't query site info if all provided
+    # Site Info, won't query site info if all are provided
     title: 'LoveLive School Idol Festival Wiki'       # Title
     base: 'https://wiki.llsif.moe/%E9%A6%96%E9%A1%B5' # Homepage URL
-    logo: 'https://www.llsif.moe/SIF_50MDL.png'       # Logo URL, set if the logo is 403
+    logo: 'https://www.llsif.moe/SIF_50MDL.png'       # Logo URL
     server: 'https://wiki.llsif.moe'                  # Server URL
     articlePath: '/$1'                                # Article path
-    # User Info, won't query user info and contribution if all provided unless forceUpdate is true
+    # User Info, won't query user info and contribution if all are provided
+    # unless forceUpdate is true
     uid: 79                     # User ID
     registration: 1520507202000 # Registration timestamp, UTC in ms
     edits: 70                   # Edit count
     lastEdit: 1544796913000     # Timestamp of last edition
     # Misc
     tags: [ 'lovelive' ]  # Tags, will be appended to the generated list
-    forceRefresh: false   # If true, the edit and lastEdit will always be quried and refreshed
+    forceRefresh: false   # If the edit and lastEdit will always be quried
+
+  - # This is a special example: The query will be blocked by same-origin policy
+    # of browser in mobile devices, so we fill all the fields and set
+    # forceRefresh to true, to make it always query and use the existing values
+    # if fails.
+    # The logo is also 403 so we use image from Wiki Media.
+    url: 'https://zh.moegirl.org.cn'
+    user: '卢卡'
+    title: '萌娘百科'
+    base: 'https://zh.moegirl.org.cn/Mainpage'
+    logo: 'https://upload.wikimedia.org/wikipedia/zh/1/1d/Moegirlpedia_logo(2015).png'
+    server: 'https://zh.moegirl.org.cn'
+    articlePath: '/$1'
+    uid: 280737
+    registration: 1482294114000
+    edits: 54
+    lastEdit: 1606915659000
+    forceRefresh: true
+
+  - url: 'https://thwiki.cc'
+    user: '卢卡'
+    tags: [ 'touhou' ]
+
+  - url: 'https://zh.wikipedia.org/w'
+    user: '卢卡'
+
+  - url: 'https://wiki.52poke.com'  
+    user: '卢卡'
+    tags: [ 'pokemon' ]
+
 
 project:  # Configures for the project, will be passed in vue.config.ts
   - publicPath: '/wikist/'  # Default: /wikist/
