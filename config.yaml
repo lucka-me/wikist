@@ -27,7 +27,7 @@ wikis:  # List of all wikis, required
     lastEdit: 1544796913000     # Timestamp of last edition
     # Misc
     tags: [ 'lovelive' ]  # Tags, will be appended to the generated list
-    forceRefresh: false   # If the edit and lastEdit will always be quried
+    forceRefresh: false   # The edit and lastEdit will always be quried if true
 
   - # This is a special example: The query will be blocked by same-origin policy
     # of browser in mobile devices, so we fill all the fields and set
