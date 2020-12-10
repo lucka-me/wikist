@@ -49,11 +49,15 @@ export default class WikiListItem extends Vue {}
     background-color: #FFF;
     
     > .logo {
+        $width-logo: 135px;
+        $radius: 0.5em;
+        $width-box: calc(#{$width-logo} + 2 * #{$radius});
+
         margin: auto;
-        border-radius: 0.5em;
-        width: 135px;
-        min-width: 135px;
-        max-width: 135px;
+        border-radius: $radius;
+        width: $width-box;
+        min-width: $width-box;
+        max-width: $width-box;
         text-align: center;
         transition: 500ms all;
 
@@ -63,9 +67,11 @@ export default class WikiListItem extends Vue {}
         }
 
         > img {
-            width: 135px;
-            min-width: 135px;
-            max-width: 135px;
+            margin: $radius;
+            width: $width-logo;
+            min-width: $width-logo;
+            max-width: $width-logo;
+            vertical-align: bottom;
         }
     }
 
