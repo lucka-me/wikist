@@ -51,6 +51,10 @@ export default class WikiListItem extends Vue {}
     > .logo {
         margin: auto;
         border-radius: 0.5em;
+        width: 135px;
+        min-width: 135px;
+        max-width: 135px;
+        text-align: center;
         transition: 500ms all;
 
         &:hover {
@@ -62,7 +66,6 @@ export default class WikiListItem extends Vue {}
             width: 135px;
             min-width: 135px;
             max-width: 135px;
-            text-align: center;
         }
     }
 
