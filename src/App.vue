@@ -34,8 +34,17 @@ export default class App extends Vue {
             const wiki = Wiki.parse(json);
             wiki.query((succeed) => {
                 if (succeed) {
-                    this.wikis.push(wiki);
-                    this.wikis.sort((a, b) => b.edits - a.edits);
+                    let start = 0;
+                    let end = this.wikis.length;
+                    while (start < end) {
+                        const mid = Math.floor((start + end) / 2);
+                        if (this.wikis[mid].edits > wiki.edits) {
+                            start = mid + 1;
+                        } else {
+                            end = mid;
+                        }
+                    }
+                    this.wikis.splice(start, 0, wiki);
                 }
                 count += 1;
                 if (count === config.wikis.length) {
