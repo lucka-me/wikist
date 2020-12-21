@@ -1,7 +1,7 @@
 {
   "name": "wikist",
   "description": "Wiki experience at a glance.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "scripts": {
     "postinstall": "tsc -m commonjs --esModuleInterop vue.config.ts",
     "prestart": "tsc -m commonjs --esModuleInterop vue.config.ts",
