@@ -1,12 +1,11 @@
 # Wikist
-[![CI](https://github.com/lucka-me/wikist/workflows/CI/badge.svg)](https://github.com/lucka-me/wikist/actions?query=workflow%3ACI "CI Workflow") 
+[![CI](https://github.com/lucka-me/wikist/workflows/CI/badge.svg)](https://github.com/lucka-me/wikist/actions?query=workflow%3ACI "CI Workflow")
 [![CD Status](https://github.com/lucka-me/wikist/workflows/CD/badge.svg)](https://github.com/lucka-me/wikist/actions?query=workflow%3ACD "CD Workflow")  
-[![Release](https://img.shields.io/github/v/release/lucka-me/wikist)](https://github.com/lucka-me/wikist/releases/latest "Last release") 
-[![Website](https://img.shields.io/website?url=https%3A%2F%2Flucka.moe%2Fwikist)](https://lucka.moe/wikist "Website") 
+[![Release](https://img.shields.io/github/v/release/lucka-me/wikist)](https://github.com/lucka-me/wikist/releases/latest "Last release")
+[![Website](https://img.shields.io/website?url=https%3A%2F%2Flucka.moe%2Fwikist)](https://lucka.moe/wikist "Website")
 [![License](https://img.shields.io/github/license/lucka-me/wikist)](./LICENSE "License")
 
 ## Description
-
 Wiki experience at a glance.
 
 ## Usage
@@ -19,3 +18,9 @@ $ npm run build # Build for production
 
 ## Configure
 To configure the contents, edit `config.yaml` and refer the comments.
+
+## Changelog
+See the [releases page](https://github.com/lucka-me/wikist/releases).
+
+## License
+The source code are [licensed under MIT](./LICENSE).
