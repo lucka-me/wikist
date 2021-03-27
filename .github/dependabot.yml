@@ -7,5 +7,5 @@ updates:
     directory: '/'
     schedule:
       interval: 'weekly'
-      day: 'sunday'
-      time: '21:00' # 05:00 for UTC+8
+      timezone: 'Asia/Hong_Kong'
+    open-pull-requests-limit: 10
