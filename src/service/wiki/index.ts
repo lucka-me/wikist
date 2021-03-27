@@ -1,5 +1,3 @@
-type QueryCallback = (succeed: boolean) => void;
-
 const Constants = {
     TIME_ACTIVE: 30 * 24 * 3600 * 1000,
     REGEXP_URL: /^https?:\/\//i
@@ -46,7 +44,7 @@ export default class Wiki implements WikiData {
 
     forceRefresh: boolean = false;
 
-    query(callback: QueryCallback) {
+     async query(): Promise<boolean> {
 
         const hasSiteInfo = this.title.length > 0
             && Constants.REGEXP_URL.test(this.base)
@@ -56,8 +54,7 @@ export default class Wiki implements WikiData {
         const hasUserInfo = this.uid > 0 && this.registration > 0;
 
         if (hasSiteInfo && hasUserInfo && !this.forceRefresh) {
-            callback(true);
-            return;
+            return true;
         }
 
         const refreshUserInfo = !hasUserInfo || this.forceRefresh;
@@ -69,47 +66,49 @@ export default class Wiki implements WikiData {
                 + (hasUserInfo ? '' : '|registration')
             + (refreshUserInfo ? `&ucuser=${this.user}&uclimit=1&ucprop=timestamp` : '')
             + '&format=json&origin=*';
-        fetch(query)
-            .then((response) => response.json())
-            .then((value) => {
-                if (!hasSiteInfo) {
-                    const siteValue = value.query.general;
-                    if (!this.title) this.title = siteValue.sitename;
-                    if (!this.base) this.base = siteValue.base;
-                    if (!this.logo) this.logo = siteValue.logo;
-                    if (!this.server) this.server = siteValue.server;
-                    if (/^\/\//.test(this.server)) {
-                        this.server = `https:${this.server}`;
-                    }
-                    if (!this.articlePath) this.articlePath = siteValue.articlepath;
-                }
 
-                if (refreshUserInfo) {
-                    const userValue = value.query.users[0];
+        let json: any;
+        try {
+            const response = await fetch(query)
+            json = await response.json();
+        } catch {
+            // Still succeed if has all info but query fails
+            return hasSiteInfo && hasUserInfo;
+        }
+        
 
-                    if (!hasUserInfo) {
-                        if (!this.uid) this.uid = userValue.userid;
-                        if (!this.registration) this.registration = Date.parse(userValue.registration);
-                    }
+        if (!hasSiteInfo) {
+            const siteValue = json.query.general;
+            if (!this.title) this.title = siteValue.sitename;
+            if (!this.base) this.base = siteValue.base;
+            if (!this.logo) this.logo = siteValue.logo;
+            if (!this.server) this.server = siteValue.server;
+            if (/^\/\//.test(this.server)) {
+                this.server = `https:${this.server}`;
+            }
+            if (!this.articlePath) this.articlePath = siteValue.articlepath;
+        }
 
-                    this.edits = userValue.editcount;
+        if (refreshUserInfo) {
+            const userValue = json.query.users[0];
 
-                    if (value.query.usercontribs.length > 0) {
-                        const lastContribValue = value.query.usercontribs[0];
-                        this.lastEdit = Date.parse(lastContribValue.timestamp);
-                    }
-                }
+            if (!hasUserInfo) {
+                if (!this.uid) this.uid = userValue.userid;
+                if (!this.registration) this.registration = Date.parse(userValue.registration);
+            }
 
-                if (Date.now() - this.lastEdit < Constants.TIME_ACTIVE) {
-                    this.tags.unshift('active');
-                }
+            this.edits = userValue.editcount;
 
-                callback(true);
-            })
-            .catch(() => {
-                // Still succeed if has all info but query fails
-                callback(hasSiteInfo && hasUserInfo);
-            });
+            if (json.query.usercontribs.length > 0) {
+                const lastContribValue = json.query.usercontribs[0];
+                this.lastEdit = Date.parse(lastContribValue.timestamp);
+            }
+        }
+
+        if (Date.now() - this.lastEdit < Constants.TIME_ACTIVE) {
+            this.tags.unshift('active');
+        }
+        return true;
     }
 
     get lastEditDate() {

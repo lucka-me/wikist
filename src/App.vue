@@ -27,31 +27,33 @@ export default class App extends Vue {
     wikis: Array<Wiki> = [];
     loading: boolean = true;
 
-    mounted() {
+    created() {
+        this.query();
+    }
+
+    private async query() {
         this.wikis.length = 0;
-        let count = 0;
+        const quries: Array<Promise<void>> = [];
         for (const json of config.wikis) {
             const wiki = Wiki.parse(json);
-            wiki.query((succeed) => {
-                if (succeed) {
-                    let start = 0;
-                    let end = this.wikis.length;
-                    while (start < end) {
-                        const mid = Math.floor((start + end) / 2);
-                        if (this.wikis[mid].edits > wiki.edits) {
-                            start = mid + 1;
-                        } else {
-                            end = mid;
-                        }
+            const query = wiki.query().then(succeed => {
+                if (!succeed) return;
+                let start = 0;
+                let end = this.wikis.length;
+                while (start < end) {
+                    const mid = Math.floor((start + end) / 2);
+                    if (this.wikis[mid].edits > wiki.edits) {
+                        start = mid + 1;
+                    } else {
+                        end = mid;
                     }
-                    this.wikis.splice(start, 0, wiki);
                 }
-                count += 1;
-                if (count === config.wikis.length) {
-                    this.loading = false;
-                }
+                this.wikis.splice(start, 0, wiki);
             });
+            quries.push(query);
         }
+        await Promise.allSettled(quries);
+        this.loading = false;
     }
 }
 </script>
