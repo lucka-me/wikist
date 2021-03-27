@@ -44,7 +44,15 @@ export default class Wiki implements WikiData {
 
     forceRefresh: boolean = false;
 
-     async query(): Promise<boolean> {
+    get userPage() {
+        return this.getArticlePath(`User:${this.user}`);
+    }
+
+    getArticlePath(title: string) {
+        return `${this.server}${this.articlePath.replace('$1', title)}`;
+    }
+
+    async query(): Promise<boolean> {
 
         const hasSiteInfo = this.title.length > 0
             && Constants.REGEXP_URL.test(this.base)
@@ -75,7 +83,6 @@ export default class Wiki implements WikiData {
             // Still succeed if has all info but query fails
             return hasSiteInfo && hasUserInfo;
         }
-        
 
         if (!hasSiteInfo) {
             const siteValue = json.query.general;
@@ -109,22 +116,6 @@ export default class Wiki implements WikiData {
             this.tags.unshift('active');
         }
         return true;
-    }
-
-    get lastEditDate() {
-        return new Date(this.lastEdit).toLocaleDateString();
-    }
-
-    get since() {
-        return new Date(this.registration).toLocaleDateString();
-    }
-
-    get userPage() {
-        return this.getArticlePath(`User:${this.user}`);
-    }
-
-    getArticlePath(title: string) {
-        return `${this.server}${this.articlePath.replace('$1', title)}`;
     }
 
     static parse(json: WikiData): Wiki {

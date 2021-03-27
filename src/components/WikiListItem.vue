@@ -13,14 +13,14 @@
             <span>#{{ wiki.uid }}</span></span>
         <span>
             <span>Since</span>
-            <span>{{ wiki.since }}</span></span>
+            <span>{{ since }}</span></span>
         <span>
             <span>Edit{{ wiki.edits > 1 ? 's' : ''}}</span>
             <span>{{ Number(wiki.edits).toLocaleString() }}</span>
         </span>
         <span v-if="wiki.lastEdit > 0">
             <span>Last Edit</span>
-            <span>{{ wiki.lastEditDate }}</span>
+            <span>{{ lastEditDate }}</span>
         </span>
     </div>
 </div>
@@ -33,6 +33,14 @@ import Wiki from '@/service/wiki';
 
 export default class WikiListItem extends Vue {
     @Prop(Wiki) readonly wiki!: Wiki;
+
+    get lastEditDate() {
+        return new Date(this.wiki.lastEdit).toLocaleDateString();
+    }
+
+    get since() {
+        return new Date(this.wiki.registration).toLocaleDateString();
+    }
 }
 </script>
 
@@ -91,6 +99,7 @@ export default class WikiListItem extends Vue {
         }
 
         .tags {
+            flex-wrap: wrap;
             justify-content: flex-start;
 
             > span {
