@@ -16,14 +16,14 @@
   "author": "lucka-me",
   "license": "MIT",
   "dependencies": {
-    "vue": "^3.0.5",
+    "vue": "^3.0.8",
     "vue-class-component": "^8.0.0-0",
     "yaml": "^1.10.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-typescript": "~4.5.0",
     "@vue/cli-service": "~4.5.12",
-    "@vue/compiler-sfc": "^3.0.5",
+    "@vue/compiler-sfc": "^3.0.8",
     "sass": "^1.30.0",
     "sass-loader": "^10.1.0",
     "typescript": "~4.1.2",
