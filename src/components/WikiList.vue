@@ -8,24 +8,20 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
+import { Vue, Options, Prop } from 'vue-property-decorator';
 
 import Wiki from '@/service/wiki';
 
 import WikiListItem from './WikiListItem.vue';
 
 @Options({
-    props: {
-        loading: Boolean,
-        wikis: Array,
-    },
     components: {
         WikiListItem,
     }
 })
 export default class WikiList extends Vue {
-    loading!: boolean;
-    wikis!: Array<Wiki>;
+    @Prop(Boolean) readonly loading!: boolean;
+    @Prop(Array) readonly wikis!: Array<Wiki>;
 }
 </script>
 

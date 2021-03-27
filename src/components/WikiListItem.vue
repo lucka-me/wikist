@@ -27,16 +27,13 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
+import { Vue, Prop } from 'vue-property-decorator';
 
 import Wiki from '@/service/wiki';
 
-@Options({
-    props: {
-        wiki: Wiki,
-    }
-})
-export default class WikiListItem extends Vue {}
+export default class WikiListItem extends Vue {
+    @Prop(Wiki) readonly wiki!: Wiki;
+}
 </script>
 
 <style lang="scss">

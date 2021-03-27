@@ -26,20 +26,15 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
+import { Vue, Prop } from 'vue-property-decorator';
 
 import Profile from '@/service/profile';
 import Wiki from '@/service/wiki';
 
-@Options({
-    props: {
-        profile: Object,
-        wikis: Array,
-    }
-})
 export default class Status extends Vue {
-    profile!: Profile;
-    wikis!: Array<Wiki>;
+
+    @Prop(Object) readonly profile!: Profile;
+    @Prop(Array) readonly wikis!: Array<Wiki>;
 
     get since() {
         const earlist = this.wikis.reduce((time, wiki) => Math.min(time, wiki.registration), Date.now());
