@@ -20,7 +20,7 @@ $ npm run build # Build for production
 To configure the contents, edit `config.yaml` and refer the comments.
 
 ## Changelog
-See the [releases page](https://github.com/lucka-me/wikist/releases).
+Refer to the [releases page](https://github.com/lucka-me/wikist/releases).
 
 ## License
 The source code are [licensed under MIT](./LICENSE).
