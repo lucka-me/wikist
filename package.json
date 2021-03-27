@@ -18,7 +18,7 @@
   "dependencies": {
     "vue": "^3.0.8",
     "vue-class-component": "^8.0.0-0",
-    "yaml": "^1.10.0"
+    "yaml": "^1.10.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-typescript": "~4.5.0",
