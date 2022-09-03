@@ -8,4 +8,4 @@ updates:
     schedule:
       interval: 'weekly'
       timezone: 'Asia/Hong_Kong'
-    open-pull-requests-limit: 10
+    open-pull-requests-limit: 0
